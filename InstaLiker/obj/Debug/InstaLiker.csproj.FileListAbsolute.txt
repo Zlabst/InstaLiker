@@ -1,0 +1,20 @@
+C:\Users\Моркоффка\AppData\Local\Temporary Projects\InstaLiker\bin\Debug\InstaLiker.exe.config
+C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\bin\Debug\InstaLiker.exe.config
+C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\bin\Debug\InstaLiker.exe
+C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\bin\Debug\InstaLiker.pdb
+C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\bin\Debug\MetroFramework.dll
+C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.Properties.Resources.resources
+C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.csproj.GenerateResource.Cache
+C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.exe
+C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.pdb
+C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.frmMain.resources
+D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\bin\Debug\InstaLiker.exe.config
+D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.exe
+D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.pdb
+D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\bin\Debug\InstaLiker.exe
+D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\bin\Debug\InstaLiker.pdb
+D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\bin\Debug\MetroFramework.dll
+D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.csprojResolveAssemblyReference.cache
+D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.frmMain.resources
+D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.Properties.Resources.resources
+D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.csproj.GenerateResource.Cache
