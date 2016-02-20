@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using MetroFramework.Controls;
+﻿using MetroFramework.Controls;
+using System.Windows.Forms;
 
 namespace InstaLiker
 {
@@ -124,12 +124,12 @@ namespace InstaLiker
             // 
             // Interval
             // 
-            this.Interval.HeaderText = "Interval min";
+            this.Interval.HeaderText = "Interval (min)";
             this.Interval.Name = "Interval";
             // 
             // NeedCountLikes
             // 
-            this.NeedCountLikes.HeaderText = "Need count likes";
+            this.NeedCountLikes.HeaderText = "Required number of likes";
             this.NeedCountLikes.Name = "NeedCountLikes";
             // 
             // CompCountLikes
@@ -181,7 +181,7 @@ namespace InstaLiker
             this.btnUpdateLinks.Name = "btnUpdateLinks";
             this.btnUpdateLinks.Size = new System.Drawing.Size(136, 23);
             this.btnUpdateLinks.TabIndex = 10;
-            this.btnUpdateLinks.Text = "Update links tags";
+            this.btnUpdateLinks.Text = "Update link tags";
             this.btnUpdateLinks.UseSelectable = true;
             this.btnUpdateLinks.UseVisualStyleBackColor = true;
             this.btnUpdateLinks.Click += new System.EventHandler(this.btnUpdateLinks_Click_1);
@@ -209,9 +209,9 @@ namespace InstaLiker
             this.lblInterval.AutoSize = true;
             this.lblInterval.Location = new System.Drawing.Point(429, 393);
             this.lblInterval.Name = "lblInterval";
-            this.lblInterval.Size = new System.Drawing.Size(77, 19);
+            this.lblInterval.Size = new System.Drawing.Size(85, 19);
             this.lblInterval.TabIndex = 8;
-            this.lblInterval.Text = "Interval min";
+            this.lblInterval.Text = "Interval (min)";
             // 
             // tbInterval
             // 
@@ -253,16 +253,17 @@ namespace InstaLiker
             this.btnStop.Location = new System.Drawing.Point(169, 440);
             this.btnStop.Name = "btnStop";
             this.btnStop.TabIndex = 13;
-            this.btnStop.Text = "Stop";
+            this.btnStop.Text = "Clear cache";
             this.btnStop.UseSelectable = true;
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // FrmMain
             // 
+            this.AcceptButton = this.btnStart;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 478);
+            this.ClientSize = new System.Drawing.Size(841, 480);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.pbMain);
@@ -280,7 +281,7 @@ namespace InstaLiker
             this.Name = "FrmMain";
             this.Resizable = false;
             this.Text = "InstaLiker";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
+            this.Load += new System.EventHandler(this.FrmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgrTagsInfo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -290,12 +291,12 @@ namespace InstaLiker
         #endregion
 
         public MetroGrid dgrTagsInfo;
+        public WebBrowser wbMain;
         public DataGridViewTextBoxColumn TagName;
         public DataGridViewTextBoxColumn Interval;
         public DataGridViewTextBoxColumn NeedCountLikes;
         public DataGridViewTextBoxColumn CompCountLikes;
         public DataGridViewTextBoxColumn Status;
-        public WebBrowser wbMain;
         public MetroLabel lblTagName;
         public MetroLabel lblInterval;
         public MetroLabel lblCountLike;
@@ -307,7 +308,7 @@ namespace InstaLiker
         public MetroTextBox tbTagName;
         public MetroTextBox tbInterval;
         public MetroTextBox tbCountLike;
-        
+
     }
 }
 

@@ -18,3 +18,4 @@ D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLike
 D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.frmMain.resources
 D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.Properties.Resources.resources
 D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.csproj.GenerateResource.Cache
+C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Debug\InstaLiker.csprojResolveAssemblyReference.cache
