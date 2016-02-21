@@ -21,7 +21,7 @@ namespace InstaLiker
             _frmMain = frmMain;
             _mainWebBrowser = _frmMain.wbMain;
             _mainMetroGrid = _frmMain.dgrTagsInfo;
-            _mainProgress = _frmMain.pbMain;
+            _mainProgress = _frmMain.PbMain;
             HeaderFrmText = frmMain.Text;
         }
 
@@ -129,13 +129,13 @@ namespace InstaLiker
         // creating xml file with tag
         public void CreateXmlFileByTag()
         {
-            NewFileXmlTag = string.Format(@"{0}\{1}.XML", PathTags, _frmMain.tbTagName.Text);
+            NewFileXmlTag = string.Format(@"{0}\{1}.XML", PathTags, _frmMain.TbTagName.Text);
 
             File.Copy(PathTags + @"\Templete.XML", NewFileXmlTag);
             _newXmlDocument = XDocument.Load(NewFileXmlTag);
 
-            ChangeElement("NeedCountLikes", _frmMain.tbCountLike.Text);
-            ChangeElement("Interval", _frmMain.tbInterval.Text);
+            ChangeElement("NeedCountLikes", _frmMain.TbCountLike.Text);
+            ChangeElement("Interval", _frmMain.TbInterval.Text);
 
             _newXmlDocument.Save(NewFileXmlTag);
         }

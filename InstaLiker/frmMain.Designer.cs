@@ -113,7 +113,7 @@ namespace InstaLiker
             this.dgrTagsInfo.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgrTagsInfo.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgrTagsInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgrTagsInfo.Size = new System.Drawing.Size(544, 331);
+            this.dgrTagsInfo.Size = new System.Drawing.Size(544, 320);
             this.dgrTagsInfo.TabIndex = 2;
             this.dgrTagsInfo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgrTagsInfo_CellValueChanged);
             // 
@@ -297,17 +297,17 @@ namespace InstaLiker
         public DataGridViewTextBoxColumn NeedCountLikes;
         public DataGridViewTextBoxColumn CompCountLikes;
         public DataGridViewTextBoxColumn Status;
-        public MetroLabel lblTagName;
-        public MetroLabel lblInterval;
-        public MetroLabel lblCountLike;
-        public MetroButton btnStop;
-        public MetroButton btnAddTag;
-        public MetroButton btnUpdateLinks;
-        public MetroButton btnStart;
-        public MetroProgressBar pbMain;
-        public MetroTextBox tbTagName;
-        public MetroTextBox tbInterval;
-        public MetroTextBox tbCountLike;
+        private MetroLabel lblTagName;
+        private MetroLabel lblInterval;
+        private MetroLabel lblCountLike;
+        private MetroButton btnStop;
+        private MetroButton btnAddTag;
+        private MetroButton btnUpdateLinks;
+        private MetroButton btnStart;
+        private MetroProgressBar pbMain;
+        private MetroTextBox tbTagName;
+        private MetroTextBox tbInterval;
+        private MetroTextBox tbCountLike;
 
     }
 }

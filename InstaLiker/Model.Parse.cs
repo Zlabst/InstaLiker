@@ -24,6 +24,17 @@ namespace InstaLiker
             }
         }
 
+        // check if error 404
+        private bool IsError404
+        {
+            get
+            {
+                var resultHtml = _mainWebBrowser.DocumentText;
+                const string regexPatt = @"ERROR 404";
+                return Regex.IsMatch(resultHtml, regexPatt, RegexOptions.IgnoreCase);
+            }
+        }
+
         // check if private user
         private bool IsPrivateUser
         {
@@ -102,11 +113,12 @@ namespace InstaLiker
         }
 
         // enabled controls
-        private void EnableCtrls(bool status)
+        private void EnableCtrls(bool state)
         {
-            _frmMain.btnStart.Enabled = status;
-            _frmMain.btnUpdateLinks.Enabled = status;
-            _frmMain.btnAddTag.Enabled = status;
+            _frmMain.BtnStart.Enabled = state;
+            _frmMain.BtnUpdateLinks.Enabled = state;
+            _frmMain.BtnAddTag.Enabled = state;
+            _frmMain.BtnStop.Enabled = state;
         }
 
         // parsing page
@@ -192,6 +204,7 @@ namespace InstaLiker
 
                     if (IsLiked) continue;
                     if (IsPrivateUser) continue;
+                    if (IsError404) continue;
 
                     ClickLike();
 

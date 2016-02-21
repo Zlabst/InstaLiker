@@ -32,7 +32,7 @@ namespace InstaLiker
         public void UpdateLinksUrl()
         {
             _model.StopProcedure = false;
-            _frmMain.pbMain.Value = 0;
+            _frmMain.PbMain.Value = 0;
             _model.UpdateLinksUrl();
             MessageBox.Show("Ok", Application.ProductName,
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -42,17 +42,17 @@ namespace InstaLiker
         public void StartLiker()
         {
             _model.StopProcedure = false;
-            _frmMain.pbMain.Value = 0;
+            _frmMain.PbMain.Value = 0;
             _model.MainProcedureLiker();
-            _frmMain.pbMain.Value = 0;
+            _frmMain.PbMain.Value = 0;
         }
 
         // creating xml file with tag
         public void CreateXmlTag()
         {
-            if (_frmMain.tbTagName.Text == string.Empty ||
-                _frmMain.tbCountLike.Text == string.Empty ||
-                _frmMain.tbInterval.Text == string.Empty)
+            if (_frmMain.TbTagName.Text == string.Empty ||
+                _frmMain.TbCountLike.Text == string.Empty ||
+                _frmMain.TbInterval.Text == string.Empty)
             {
                 MessageBox.Show("Not all data is entered", Application.ProductName,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -60,15 +60,15 @@ namespace InstaLiker
             }
 
             int check;
-            if (!int.TryParse(_frmMain.tbCountLike.Text, out check) ||
-                !int.TryParse(_frmMain.tbInterval.Text, out check))
+            if (!int.TryParse(_frmMain.TbCountLike.Text, out check) ||
+                !int.TryParse(_frmMain.TbInterval.Text, out check))
             {
                 MessageBox.Show("Data not is numeric", Application.ProductName,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (_model.ListNameTagFiles.Contains(_frmMain.tbTagName.Text + ".XML"))
+            if (_model.ListNameTagFiles.Contains(_frmMain.TbTagName.Text + ".XML"))
             {
                 MessageBox.Show("This tag is already", Application.ProductName,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -78,9 +78,9 @@ namespace InstaLiker
             _model.CreateXmlFileByTag();
             LoadTagsToGrid();
 
-            _frmMain.tbTagName.Text = string.Empty;
-            _frmMain.tbCountLike.Text = string.Empty;
-            _frmMain.tbInterval.Text = string.Empty;
+            _frmMain.TbTagName.Text = string.Empty;
+            _frmMain.TbCountLike.Text = string.Empty;
+            _frmMain.TbInterval.Text = string.Empty;
 
             MessageBox.Show("Ok", Application.ProductName,
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -97,7 +97,7 @@ namespace InstaLiker
         {
             _model.StopProcedure = true;
             _model.CounterPb = 0;
-            _frmMain.pbMain.Value = 0;
+            _frmMain.PbMain.Value = 0;
         }
 
         public void ClearCache()

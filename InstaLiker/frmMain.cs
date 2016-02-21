@@ -1,4 +1,5 @@
-﻿using MetroFramework.Forms;
+﻿using MetroFramework.Controls;
+using MetroFramework.Forms;
 using System;
 using System.Windows.Forms;
 
@@ -8,9 +9,33 @@ namespace InstaLiker
     {
         private Presenter _presenter;
 
+        public MetroLabel LblTagName { get; private set; }
+        public MetroLabel LblInterval { get; private set; }
+        public MetroLabel LblCountLike { get; private set; }
+        public MetroButton BtnStop { get; private set; }
+        public MetroButton BtnAddTag { get; private set; }
+        public MetroButton BtnUpdateLinks { get; private set; }
+        public MetroButton BtnStart { get; private set; }
+        public MetroProgressBar PbMain { get; private set; }
+        public MetroTextBox TbTagName { get; private set; }
+        public MetroTextBox TbInterval { get; private set; }
+        public MetroTextBox TbCountLike { get; private set; }
+
         public FrmMain()
         {
             InitializeComponent();
+
+            LblTagName = lblCountLike;
+            LblInterval = lblInterval;
+            LblCountLike = lblCountLike;
+            BtnStop = btnStop;
+            BtnAddTag = btnAddTag;
+            BtnUpdateLinks = btnUpdateLinks;
+            BtnStart = btnStart;
+            PbMain = pbMain;
+            TbTagName = tbTagName;
+            TbInterval = tbInterval;
+            TbCountLike = tbCountLike;
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
@@ -43,15 +68,15 @@ namespace InstaLiker
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            try
-            {
-                _presenter.StartLiker();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.StackTrace, Application.ProductName, MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
-            }
+            //try
+            //{
+            _presenter.StartLiker();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.StackTrace, Application.ProductName, MessageBoxButtons.OK,
+            //       MessageBoxIcon.Error);
+            //}
         }
 
         private void btnAddTag_Click(object sender, EventArgs e)
