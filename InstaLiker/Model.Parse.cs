@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -41,6 +43,38 @@ namespace InstaLiker
                 _mainWebBrowser.Refresh();
                 WaitLoadPage(_mainWebBrowser);
                 await CheckErorr504();
+            }
+        }
+
+        // checking internet connection
+        public async Task CheckInternetConnection()
+        {
+            if (!IsOnline())
+            {
+                await Task.Delay(120000);
+                _mainWebBrowser.Refresh();
+                WaitLoadPage(_mainWebBrowser);
+                await CheckInternetConnection();
+            }
+        }
+
+        // ping web-site
+        public static bool IsOnline()
+        {
+            var pinger = new Ping();
+
+            try
+            {
+                var pingReply = pinger.Send("www.websta.me");
+                return pingReply != null && pingReply.Status == IPStatus.Success;
+            }
+            catch (SocketException)
+            {
+                return false;
+            }
+            catch (PingException)
+            {
+                return false;
             }
         }
 
@@ -208,6 +242,8 @@ namespace InstaLiker
                     _mainWebBrowser.Navigate("http://websta.me" + readUrl);
                     WaitLoadPage(_mainWebBrowser);
                     AddLikedUrlInXml(readUrl);
+
+                    await CheckInternetConnection();
 
                     if (NeedGoToNextLink) continue;
 
