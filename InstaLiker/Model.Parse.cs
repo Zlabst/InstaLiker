@@ -13,36 +13,34 @@ namespace InstaLiker
         private List<string> _downloadReadUrlList;
         public int CounterPb;
         public bool StopProcedure = false;
-        // check or put like
-        private bool IsLiked
+
+        // check if need to go to the next link
+        private bool NeedGoToNextLink
         {
             get
             {
                 var resultHtml = _mainWebBrowser.DocumentText;
-                const string regexPatt = @"<button type=""button"" class=""btn btn-default btn-xs done likeButton""";
-                return Regex.IsMatch(resultHtml, regexPatt, RegexOptions.IgnoreCase);
+                string[] patterns = { "ERROR 404", "404 Not Found",
+                                        @"<h1>This user is private.</h1>",
+                                        @"<button type=""button"" class=""btn btn-default btn-xs done likeButton"""};
+
+                return patterns.Any(pattern => Regex.IsMatch(resultHtml, pattern, RegexOptions.IgnoreCase));
             }
         }
 
-        // check if error 404
-        private bool IsError404
+        // check if error 504
+        private async Task CheckErorr504()
         {
-            get
-            {
-                var resultHtml = _mainWebBrowser.DocumentText;
-                const string regexPatt = @"ERROR 404";
-                return Regex.IsMatch(resultHtml, regexPatt, RegexOptions.IgnoreCase);
-            }
-        }
+            var resultHtml = _mainWebBrowser.DocumentText;
+            const string regexPatt = @"ERROR 504";
+            var result = Regex.IsMatch(resultHtml, regexPatt, RegexOptions.IgnoreCase);
 
-        // check if private user
-        private bool IsPrivateUser
-        {
-            get
+            if (result)
             {
-                var resultHtml = _mainWebBrowser.DocumentText;
-                const string regexPatt = @"<h1>This user is private.</h1>";
-                return Regex.IsMatch(resultHtml, regexPatt, RegexOptions.IgnoreCase);
+                await Task.Delay(120000);
+                _mainWebBrowser.Refresh();
+                WaitLoadPage(_mainWebBrowser);
+                await CheckErorr504();
             }
         }
 
@@ -60,13 +58,22 @@ namespace InstaLiker
             }
         }
 
-        // waiting a full page load
+        // waiting a full page load with timer
         private void WaitLoadPage(WebBrowser webBrowser)
         {
+            var sw = new Stopwatch();
+            sw.Start();
+
             _frmMain.Text = "Loading...";
             do
             {
                 Application.DoEvents();
+
+                if (sw.Elapsed.Minutes >= 3)
+                {
+                    _mainWebBrowser.Refresh();
+                    sw.Restart();
+                }
             } while (webBrowser.ReadyState != WebBrowserReadyState.Complete || webBrowser.IsBusy);
 
             _frmMain.Text = HeaderFrmText;
@@ -202,9 +209,9 @@ namespace InstaLiker
                     WaitLoadPage(_mainWebBrowser);
                     AddLikedUrlInXml(readUrl);
 
-                    if (IsLiked) continue;
-                    if (IsPrivateUser) continue;
-                    if (IsError404) continue;
+                    if (NeedGoToNextLink) continue;
+
+                    await CheckErorr504();
 
                     ClickLike();
 
