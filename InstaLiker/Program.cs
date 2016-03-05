@@ -4,14 +4,15 @@ using System.Windows.Forms;
 
 namespace InstaLiker
 {
-    static class Program
+    internal static class Program
     {
         public static FrmMain FrmMain;
+
         /// <summary>
-        /// Главная точка входа для приложения.
+        ///     Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

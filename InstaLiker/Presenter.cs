@@ -1,16 +1,44 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Data;
+using System.Windows.Forms;
+using InstaLiker.ModelData;
 
 namespace InstaLiker
 {
-    public class Presenter
+    public class Presenter : IModelComponents
     {
-        private readonly FrmMain _frmMain;
         private readonly Model _model;
 
-        public Presenter(FrmMain frmmain)
+        public Presenter(string documentText)
         {
-            _frmMain = frmmain;
-            _model = new Model(_frmMain);
+            _model = new Model(documentText);
+            Data = _model.Data;
+
+            _model.OnClickLike += () => { if (OnClickLike != null) OnClickLike.Invoke(); };
+            _model.OnWaitLoadingPage += WaitLoadingPage;
+            _model.OnRefreshBrowser += () => { if (OnRefreshBrowser != null) OnRefreshBrowser.Invoke(); };
+            _model.OnChangeUrlBrowser += uri => { if (OnChangeUrlBrowser != null) OnChangeUrlBrowser.Invoke(uri); };
+            _model.OnEnableControls += state => { if (OnEnableControls != null) OnEnableControls.Invoke(state); };
+            _model.OnChangeProgressBar += i => { if (OnChangeProgressBar != null) OnChangeProgressBar.Invoke(i); };
+            _model.OnSelectRow += row => { if (OnSelectRow != null) OnSelectRow.Invoke(row); };
+            _model.OnComplete += () => { if (OnComplete != null) OnComplete.Invoke(); };
+        }
+
+        public DataTable Data { get; private set; }
+        public event Action OnClickLike;
+        public event WaitLoadingPage OnWaitLoadingPage;
+        public event Action OnRefreshBrowser;
+        public event Action<Uri> OnChangeUrlBrowser;
+        public event Action<bool> OnEnableControls;
+        public event Action<int> OnChangeProgressBar;
+        public event Action<int> OnSelectRow;
+        public event Action OnComplete;
+
+        private void WaitLoadingPage(out string documentText)
+        {
+            string docText = null;
+            if (OnWaitLoadingPage != null) OnWaitLoadingPage.Invoke(out docText);
+            documentText = docText;
         }
 
         // download file names (tags) from the folder
@@ -18,91 +46,57 @@ namespace InstaLiker
         {
             _model.LoadTagsInfo();
             var arrTagsInfo = _model.ArrTagsInfo;
-            _frmMain.dgrTagsInfo.Rows.Clear();
+
+            _model.Data.Rows.Clear();
 
             for (var i = 0; i < arrTagsInfo.GetUpperBound(0) + 1; i++)
             {
-                _frmMain.dgrTagsInfo.Rows.Add(arrTagsInfo[i, 0],
-                    arrTagsInfo[i, 1],
-                    arrTagsInfo[i, 2]);
+                DataRow row = _model.Data.NewRow();
+                row["TagName"] = arrTagsInfo[i, 0];
+                row["Interval"] = arrTagsInfo[i, 1];
+                row["NeedCountLikes"] = arrTagsInfo[i, 2];
+                _model.Data.Rows.Add(row);
             }
+
+            _model.Data.AcceptChanges();
         }
 
         // each tag is going to 60 and added to the links xml files
         public void UpdateLinksUrl()
         {
-            _model.StopProcedure = false;
-            _frmMain.PbMain.Value = 0;
+            if (OnChangeProgressBar != null) OnChangeProgressBar.Invoke(0);
+
             _model.UpdateLinksUrl();
-            MessageBox.Show("Ok", Application.ProductName,
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (OnComplete != null) OnComplete.Invoke();
         }
 
         // main procedure for likes
         public void StartLiker()
         {
-            _model.StopProcedure = false;
-            _frmMain.PbMain.Value = 0;
+            if (OnChangeProgressBar != null) OnChangeProgressBar.Invoke(0);
             _model.MainProcedureLiker();
-            _frmMain.PbMain.Value = 0;
+            if (OnChangeProgressBar != null) OnChangeProgressBar.Invoke(0);
         }
 
         // creating xml file with tag
-        public void CreateXmlTag()
+        public void CreateXmlTag(string tagName, string countLikes, string interval)
         {
-            if (_frmMain.TbTagName.Text == string.Empty ||
-                _frmMain.TbCountLike.Text == string.Empty ||
-                _frmMain.TbInterval.Text == string.Empty)
-            {
-                MessageBox.Show("Not all data is entered", Application.ProductName,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            int check;
-            if (!int.TryParse(_frmMain.TbCountLike.Text, out check) ||
-                !int.TryParse(_frmMain.TbInterval.Text, out check))
-            {
-                MessageBox.Show("Data not is numeric", Application.ProductName,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (_model.ListNameTagFiles.Contains(_frmMain.TbTagName.Text + ".XML"))
+            if (_model.ListNameTagFiles.Contains(tagName + ".XML"))
             {
                 MessageBox.Show("This tag is already", Application.ProductName,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            _model.CreateXmlFileByTag();
+            _model.CreateXmlFileByTag(tagName, countLikes, interval);
             LoadTagsToGrid();
-
-            _frmMain.TbTagName.Text = string.Empty;
-            _frmMain.TbCountLike.Text = string.Empty;
-            _frmMain.TbInterval.Text = string.Empty;
-
-            MessageBox.Show("Ok", Application.ProductName,
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // change info in Xml file
         public void ChangeInfo(string columnName, string newValue, string name)
         {
             _model.ChangeElement(columnName, newValue, name);
-        }
-
-        // stop main procedure
-        public void StopProcedure()
-        {
-            _model.StopProcedure = true;
-            _model.CounterPb = 0;
-            _frmMain.PbMain.Value = 0;
-        }
-
-        public void ClearCache()
-        {
-            _model.ClearCache();
         }
     }
 }
