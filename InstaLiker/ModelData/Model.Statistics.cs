@@ -1,47 +1,33 @@
-﻿using MetroFramework.Controls;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
-namespace InstaLiker
+namespace InstaLiker.ModelData
 {
     public partial class Model
     {
-        private readonly FrmMain _frmMain;
-        private readonly MetroGrid _mainMetroGrid;
-        private readonly ProgressBar _mainProgress;
-        private readonly WebBrowser _mainWebBrowser;
+        private int _countNeedLikes;
+        private List<string> _existCompUrlList;
+        private List<string> _existReadUrlList;
+        private double _interval;
+        private string _newFileXmlTag;
         private XDocument _newXmlDocument;
-        public string[,] ArrTagsInfo;
+        private string _pathTags;
 
-        public Model(FrmMain frmMain)
-        {
-            _frmMain = frmMain;
-            _mainWebBrowser = _frmMain.wbMain;
-            _mainMetroGrid = _frmMain.dgrTagsInfo;
-            _mainProgress = _frmMain.PbMain;
-            HeaderFrmText = frmMain.Text;
-        }
+        public string[,] ArrTagsInfo { get; private set; }
+        public List<string> ListNameTagFiles { get; private set; }
+        public List<string> ListFullNameTagFiles { get; private set; }
 
-        private string NewFileXmlTag { get; set; }
-        private string PathTags { get; set; }
-        public List<string> ListNameTagFiles { get; set; }
-        private List<string> ListFullNameTagFiles { get; set; }
-        private List<string> ExistCompUrlList { get; set; }
-        private List<string> ExistReadUrlList { get; set; }
-        private int CountNeedLikes { get; set; }
-        private double Interval { get; set; }
-        private string HeaderFrmText { get; set; }
         // download file names (tags) from the folder
         public void LoadTagsInfo()
         {
             ListFullNameTagFiles = new List<string>();
             ListNameTagFiles = new List<string>();
             var c = 0;
-            PathTags = Path.Combine(Application.StartupPath, "Tags");
-            var dir = new DirectoryInfo(PathTags);
+            _pathTags = Path.Combine(Application.StartupPath, "Tags");
+            var dir = new DirectoryInfo(_pathTags);
             var countTagFiles = dir.GetFiles("*.xml").Count(item => item.Name != "Templete.XML");
             ArrTagsInfo = new string[countTagFiles, 4];
 
@@ -52,14 +38,18 @@ namespace InstaLiker
                 ListNameTagFiles.Add(file.Name);
 
                 ArrTagsInfo[c, 0] = Path.GetFileNameWithoutExtension(file.Name);
-                ArrTagsInfo[c, 1] = xmlDocTag.Elements("DATA").Elements("Interval").FirstOrDefault().Value;
-                ArrTagsInfo[c, 2] = xmlDocTag.Elements("DATA").Elements("NeedCountLikes").FirstOrDefault().Value;
+
+                var interval = xmlDocTag.Elements("DATA").Elements("Interval").FirstOrDefault();
+                if (interval != null) ArrTagsInfo[c, 1] = interval.Value;
+
+                var needCountLikes = xmlDocTag.Elements("DATA").Elements("NeedCountLikes").FirstOrDefault();
+                if (needCountLikes != null) ArrTagsInfo[c, 2] = needCountLikes.Value;
                 ++c;
             }
         }
 
         // add new links for likes
-        private void AddNewReadUrlInXml(string fileName)
+        public void AddNewReadUrlInXml(string fileName)
         {
             var xmlDocTag = XDocument.Load(fileName);
             var existReadUrlList = xmlDocTag.Elements("DATA").Elements("READURL").
@@ -117,27 +107,29 @@ namespace InstaLiker
             var xmlDocTag = XDocument.Load(tagFile);
             var xmlDocCompUrls = XDocument.Load(Application.StartupPath + @"\AllCompleteUrls.XML");
 
-            CountNeedLikes = int.Parse(xmlDocTag.Elements("DATA").Elements("NeedCountLikes").FirstOrDefault().Value);
-            Interval = double.Parse(xmlDocTag.Elements("DATA").Elements("Interval").FirstOrDefault().Value);
+            var needCountLikes = xmlDocTag.Elements("DATA").Elements("NeedCountLikes").FirstOrDefault();
+            if (needCountLikes != null) _countNeedLikes = int.Parse(needCountLikes.Value);
+            var interval = xmlDocTag.Elements("DATA").Elements("Interval").FirstOrDefault();
+            if (interval != null) _interval = double.Parse(interval.Value);
 
-            ExistCompUrlList = xmlDocCompUrls.Elements("DATA").Elements("COMPLETEURL").
+            _existCompUrlList = xmlDocCompUrls.Elements("DATA").Elements("COMPLETEURL").
                 ToList().Select(item => item.Value).ToList();
-            ExistReadUrlList = xmlDocTag.Elements("DATA").Elements("READURL").
+            _existReadUrlList = xmlDocTag.Elements("DATA").Elements("READURL").
                 ToList().Select(item => item.Value).ToList();
         }
 
         // creating xml file with tag
-        public void CreateXmlFileByTag()
+        public void CreateXmlFileByTag(string tagName, string countLikes, string interval)
         {
-            NewFileXmlTag = string.Format(@"{0}\{1}.XML", PathTags, _frmMain.TbTagName.Text);
+            _newFileXmlTag = string.Format(@"{0}\{1}.XML", _pathTags, tagName);
 
-            File.Copy(PathTags + @"\Templete.XML", NewFileXmlTag);
-            _newXmlDocument = XDocument.Load(NewFileXmlTag);
+            File.Copy(_pathTags + @"\Templete.XML", _newFileXmlTag);
+            _newXmlDocument = XDocument.Load(_newFileXmlTag);
 
-            ChangeElement("NeedCountLikes", _frmMain.TbCountLike.Text);
-            ChangeElement("Interval", _frmMain.TbInterval.Text);
+            ChangeElement("NeedCountLikes", countLikes);
+            ChangeElement("Interval", interval);
 
-            _newXmlDocument.Save(NewFileXmlTag);
+            _newXmlDocument.Save(_newFileXmlTag);
         }
 
         // change value in element
@@ -150,7 +142,7 @@ namespace InstaLiker
             }
             else
             {
-                var fileXmlTag = string.Format(@"{0}\{1}.XML", PathTags, fileName);
+                var fileXmlTag = string.Format(@"{0}\{1}.XML", _pathTags, fileName);
                 var xmlDocument = XDocument.Load(fileXmlTag);
                 var element = xmlDocument.Elements("DATA").Elements(columnName).ElementAt(0);
 

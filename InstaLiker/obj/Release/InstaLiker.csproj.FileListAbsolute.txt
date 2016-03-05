@@ -18,3 +18,13 @@ D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLike
 D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\InstaLiker\obj\Release\InstaLiker.Properties.Resources.resources
 D:\Users\Богдан\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\InstaLiker\obj\Release\InstaLiker.csproj.GenerateResource.Cache
 C:\Users\Моркоффка\Documents\Visual Studio 2013\Projects\InstaLiker\InstaLiker\obj\Release\InstaLiker.csprojResolveAssemblyReference.cache
+B:\Visual Studio\Projects\InstaLiker\InstaLiker\bin\Release\InstaLiker.exe.config
+B:\Visual Studio\Projects\InstaLiker\InstaLiker\obj\Release\InstaLiker.exe
+B:\Visual Studio\Projects\InstaLiker\InstaLiker\obj\Release\InstaLiker.pdb
+B:\Visual Studio\Projects\InstaLiker\InstaLiker\obj\Release\InstaLiker.FrmMain.resources
+B:\Visual Studio\Projects\InstaLiker\InstaLiker\obj\Release\InstaLiker.Properties.Resources.resources
+B:\Visual Studio\Projects\InstaLiker\InstaLiker\obj\Release\InstaLiker.csproj.GenerateResource.Cache
+B:\Visual Studio\Projects\InstaLiker\InstaLiker\bin\Release\InstaLiker.exe
+B:\Visual Studio\Projects\InstaLiker\InstaLiker\bin\Release\InstaLiker.pdb
+B:\Visual Studio\Projects\InstaLiker\InstaLiker\bin\Release\MetroFramework.dll
+B:\Visual Studio\Projects\InstaLiker\InstaLiker\obj\Release\InstaLiker.csprojResolveAssemblyReference.cache

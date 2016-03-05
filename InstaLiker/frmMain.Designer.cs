@@ -36,11 +36,6 @@ namespace InstaLiker
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.wbMain = new System.Windows.Forms.WebBrowser();
             this.dgrTagsInfo = new MetroFramework.Controls.MetroGrid();
-            this.TagName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NeedCountLikes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CompCountLikes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbTagName = new MetroFramework.Controls.MetroTextBox();
             this.lblTagName = new MetroFramework.Controls.MetroLabel();
             this.btnAddTag = new MetroFramework.Controls.MetroButton();
@@ -51,7 +46,12 @@ namespace InstaLiker
             this.tbInterval = new MetroFramework.Controls.MetroTextBox();
             this.lblCountLike = new MetroFramework.Controls.MetroLabel();
             this.tbCountLike = new MetroFramework.Controls.MetroTextBox();
-            this.btnStop = new MetroFramework.Controls.MetroButton();
+            this.btnClearCache = new MetroFramework.Controls.MetroButton();
+            this.TagName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NeedCountLikes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompCountLikes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgrTagsInfo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,31 +117,6 @@ namespace InstaLiker
             this.dgrTagsInfo.TabIndex = 2;
             this.dgrTagsInfo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgrTagsInfo_CellValueChanged);
             // 
-            // TagName
-            // 
-            this.TagName.HeaderText = "Tag";
-            this.TagName.Name = "TagName";
-            // 
-            // Interval
-            // 
-            this.Interval.HeaderText = "Interval (min)";
-            this.Interval.Name = "Interval";
-            // 
-            // NeedCountLikes
-            // 
-            this.NeedCountLikes.HeaderText = "Required number of likes";
-            this.NeedCountLikes.Name = "NeedCountLikes";
-            // 
-            // CompCountLikes
-            // 
-            this.CompCountLikes.HeaderText = "Complete count likes";
-            this.CompCountLikes.Name = "CompCountLikes";
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            // 
             // tbTagName
             // 
             this.tbTagName.Lines = new string[0];
@@ -184,7 +159,7 @@ namespace InstaLiker
             this.btnUpdateLinks.Text = "Update link tags";
             this.btnUpdateLinks.UseSelectable = true;
             this.btnUpdateLinks.UseVisualStyleBackColor = true;
-            this.btnUpdateLinks.Click += new System.EventHandler(this.btnUpdateLinks_Click_1);
+            this.btnUpdateLinks.Click += new System.EventHandler(this.btnUpdateLinks_Click);
             // 
             // pbMain
             // 
@@ -248,15 +223,48 @@ namespace InstaLiker
             this.tbCountLike.TabIndex = 5;
             this.tbCountLike.UseSelectable = true;
             // 
-            // btnStop
+            // btnClearCache
             // 
-            this.btnStop.Location = new System.Drawing.Point(169, 440);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.TabIndex = 13;
-            this.btnStop.Text = "Clear cache";
-            this.btnStop.UseSelectable = true;
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            this.btnClearCache.Location = new System.Drawing.Point(169, 440);
+            this.btnClearCache.Name = "btnStop";
+            this.btnClearCache.TabIndex = 13;
+            this.btnClearCache.Text = "Clear cache";
+            this.btnClearCache.UseSelectable = true;
+            this.btnClearCache.UseVisualStyleBackColor = true;
+            this.btnClearCache.Click += new System.EventHandler(this.btnClearCache_Click);
+            // 
+            // TagName
+            // 
+            this.TagName.DataPropertyName = "TagName";
+            this.TagName.HeaderText = "Tag";
+            this.TagName.Name = "TagName";
+            this.TagName.ReadOnly = true;
+            // 
+            // Interval
+            // 
+            this.Interval.DataPropertyName = "Interval";
+            this.Interval.HeaderText = "Interval (min)";
+            this.Interval.Name = "Interval";
+            // 
+            // NeedCountLikes
+            // 
+            this.NeedCountLikes.DataPropertyName = "NeedCountLikes";
+            this.NeedCountLikes.HeaderText = "Required number of likes";
+            this.NeedCountLikes.Name = "NeedCountLikes";
+            // 
+            // CompCountLikes
+            // 
+            this.CompCountLikes.DataPropertyName = "CompCountLikes";
+            this.CompCountLikes.HeaderText = "Complete count likes";
+            this.CompCountLikes.Name = "CompCountLikes";
+            this.CompCountLikes.ReadOnly = true;
+            // 
+            // Status
+            // 
+            this.Status.DataPropertyName = "Status";
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
             // 
             // FrmMain
             // 
@@ -264,7 +272,7 @@ namespace InstaLiker
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(841, 480);
-            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.btnClearCache);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.pbMain);
             this.Controls.Add(this.btnUpdateLinks);
@@ -290,17 +298,12 @@ namespace InstaLiker
 
         #endregion
 
-        public MetroGrid dgrTagsInfo;
-        public WebBrowser wbMain;
-        public DataGridViewTextBoxColumn TagName;
-        public DataGridViewTextBoxColumn Interval;
-        public DataGridViewTextBoxColumn NeedCountLikes;
-        public DataGridViewTextBoxColumn CompCountLikes;
-        public DataGridViewTextBoxColumn Status;
+        private MetroGrid dgrTagsInfo;
+        private WebBrowser wbMain;
         private MetroLabel lblTagName;
         private MetroLabel lblInterval;
         private MetroLabel lblCountLike;
-        private MetroButton btnStop;
+        private MetroButton btnClearCache;
         private MetroButton btnAddTag;
         private MetroButton btnUpdateLinks;
         private MetroButton btnStart;
@@ -308,6 +311,11 @@ namespace InstaLiker
         private MetroTextBox tbTagName;
         private MetroTextBox tbInterval;
         private MetroTextBox tbCountLike;
+        private DataGridViewTextBoxColumn TagName;
+        private DataGridViewTextBoxColumn Interval;
+        private DataGridViewTextBoxColumn NeedCountLikes;
+        private DataGridViewTextBoxColumn CompCountLikes;
+        private DataGridViewTextBoxColumn Status;
 
     }
 }

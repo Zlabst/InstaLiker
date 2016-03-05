@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>like icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\like icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MetroFramework">
@@ -57,6 +57,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModelData\IModelComponents.cs" />
     <Compile Include="Presenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,11 +88,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model.Statistics.cs" />
-    <Compile Include="Model.Parse.cs" />
+    <Compile Include="ModelData\Model.Statistics.cs" />
+    <Compile Include="ModelData\Model.Parse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="like icon.ico" />
+    <Content Include="Resources\like icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
