@@ -34,8 +34,14 @@ namespace InstaLiker
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.wbMain = new System.Windows.Forms.WebBrowser();
             this.dgrTagsInfo = new MetroFramework.Controls.MetroGrid();
+            this.TagName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NeedCountLikes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompCountLikes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbTagName = new MetroFramework.Controls.MetroTextBox();
             this.lblTagName = new MetroFramework.Controls.MetroLabel();
             this.btnAddTag = new MetroFramework.Controls.MetroButton();
@@ -47,11 +53,6 @@ namespace InstaLiker
             this.lblCountLike = new MetroFramework.Controls.MetroLabel();
             this.tbCountLike = new MetroFramework.Controls.MetroTextBox();
             this.btnClearCache = new MetroFramework.Controls.MetroButton();
-            this.TagName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NeedCountLikes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CompCountLikes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgrTagsInfo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,6 +117,39 @@ namespace InstaLiker
             this.dgrTagsInfo.Size = new System.Drawing.Size(544, 320);
             this.dgrTagsInfo.TabIndex = 2;
             this.dgrTagsInfo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgrTagsInfo_CellValueChanged);
+            // 
+            // TagName
+            // 
+            this.TagName.DataPropertyName = "TagName";
+            this.TagName.HeaderText = "Tag";
+            this.TagName.Name = "TagName";
+            this.TagName.ReadOnly = true;
+            // 
+            // Interval
+            // 
+            this.Interval.DataPropertyName = "Interval";
+            this.Interval.HeaderText = "Interval (min)";
+            this.Interval.Name = "Interval";
+            // 
+            // NeedCountLikes
+            // 
+            this.NeedCountLikes.DataPropertyName = "NeedCountLikes";
+            this.NeedCountLikes.HeaderText = "Required number of likes";
+            this.NeedCountLikes.Name = "NeedCountLikes";
+            // 
+            // CompCountLikes
+            // 
+            this.CompCountLikes.DataPropertyName = "CompCountLikes";
+            this.CompCountLikes.HeaderText = "Complete count likes";
+            this.CompCountLikes.Name = "CompCountLikes";
+            this.CompCountLikes.ReadOnly = true;
+            // 
+            // Status
+            // 
+            this.Status.DataPropertyName = "Status";
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
             // 
             // tbTagName
             // 
@@ -233,39 +267,6 @@ namespace InstaLiker
             this.btnClearCache.UseVisualStyleBackColor = true;
             this.btnClearCache.Click += new System.EventHandler(this.btnClearCache_Click);
             // 
-            // TagName
-            // 
-            this.TagName.DataPropertyName = "TagName";
-            this.TagName.HeaderText = "Tag";
-            this.TagName.Name = "TagName";
-            this.TagName.ReadOnly = true;
-            // 
-            // Interval
-            // 
-            this.Interval.DataPropertyName = "Interval";
-            this.Interval.HeaderText = "Interval (min)";
-            this.Interval.Name = "Interval";
-            // 
-            // NeedCountLikes
-            // 
-            this.NeedCountLikes.DataPropertyName = "NeedCountLikes";
-            this.NeedCountLikes.HeaderText = "Required number of likes";
-            this.NeedCountLikes.Name = "NeedCountLikes";
-            // 
-            // CompCountLikes
-            // 
-            this.CompCountLikes.DataPropertyName = "CompCountLikes";
-            this.CompCountLikes.HeaderText = "Complete count likes";
-            this.CompCountLikes.Name = "CompCountLikes";
-            this.CompCountLikes.ReadOnly = true;
-            // 
-            // Status
-            // 
-            this.Status.DataPropertyName = "Status";
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
-            // 
             // FrmMain
             // 
             this.AcceptButton = this.btnStart;
@@ -285,6 +286,7 @@ namespace InstaLiker
             this.Controls.Add(this.tbTagName);
             this.Controls.Add(this.dgrTagsInfo);
             this.Controls.Add(this.wbMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FrmMain";
             this.Resizable = false;

@@ -20,11 +20,11 @@ namespace InstaLiker.ModelData
         public Model(string documentText)
         {
             Data = new DataTable("Data");
-            Data.Columns.Add("TagName", typeof (string));
-            Data.Columns.Add("Interval", typeof (double));
-            Data.Columns.Add("NeedCountLikes", typeof (int));
-            Data.Columns.Add("CompCountLikes", typeof (int));
-            Data.Columns.Add("Status", typeof (string));
+            Data.Columns.Add("TagName", typeof(string));
+            Data.Columns.Add("Interval", typeof(double));
+            Data.Columns.Add("NeedCountLikes", typeof(int));
+            Data.Columns.Add("CompCountLikes", typeof(int));
+            Data.Columns.Add("Status", typeof(string));
 
             _documentText = documentText;
         }
@@ -205,13 +205,6 @@ namespace InstaLiker.ModelData
 
                 foreach (var readUrl in _existReadUrlList.Where(readUrl => !_existCompUrlList.Contains(readUrl)))
                 {
-                    if (countLikes >= _countNeedLikes)
-                    {
-                        Data.Rows[indexTag]["Status"] = string.Format("Done for {0} min",
-                            swTimer.Elapsed.Minutes);
-                        break;
-                    }
-
                     var uriTag = new Uri("http://websta.me" + readUrl);
                     if (OnChangeUrlBrowser != null) OnChangeUrlBrowser.Invoke(uriTag);
 
@@ -227,10 +220,16 @@ namespace InstaLiker.ModelData
                     if (OnClickLike != null)
                         OnClickLike.Invoke();
 
-                    await Task.Delay((int) Math.Round(_interval*60000));
+                    await Task.Delay((int)Math.Round(_interval * 60000));
                     countLikes++;
                     Data.Rows[indexTag]["CompCountLikes"] = countLikes;
                     ChangeProgress(countChangesPb);
+
+                    if (countLikes >= countChangesPb)
+                    {
+                        Data.Rows[indexTag]["Status"] = string.Format("Done for {0} min", swTimer.Elapsed.Minutes);
+                        break;
+                    }
                 }
                 CounterPb = 0;
                 indexTag++;
@@ -248,7 +247,7 @@ namespace InstaLiker.ModelData
             Application.DoEvents();
             CounterPb++;
 
-            if (OnChangeProgressBar != null) OnChangeProgressBar.Invoke(CounterPb*(100/countChanges));
+            if (OnChangeProgressBar != null) OnChangeProgressBar.Invoke(CounterPb * (100 / countChanges));
         }
     }
 }
