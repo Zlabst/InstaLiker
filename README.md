@@ -1,2 +1,2 @@
 # InstaLiker
-Project works with torrent site websta.me. Automatic press likes by entering tags
+Проект для автоматического проставления "лайков" в Instagram'e, который работает через вспомогательный сайт Websta
